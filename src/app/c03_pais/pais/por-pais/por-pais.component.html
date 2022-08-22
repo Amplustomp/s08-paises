@@ -46,6 +46,7 @@
 <!--El componente pais-tabla muestra los resultados -->
 <div class="row" *ngIf="!swError">
     <div class="col">
-        <app-pais-tabla></app-pais-tabla>
+         <!--[paises_entrada]="paises"-->
+        <app-pais-tabla [paises_entrada]="paises"></app-pais-tabla>
     </div>
 </div>

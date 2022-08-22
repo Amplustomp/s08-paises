@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IPais } from '../pais.interface';
+import { PaisService } from '../services/pais.service';
 
 @Component({
   selector: 'app-por-pais',
@@ -8,7 +9,7 @@ import { IPais } from '../pais.interface';
 })
 export class PorPaisComponent implements OnInit {
 
-  constructor() { }
+  constructor(private serPais:PaisService) { }
 
   ngOnInit(): void {
   }
@@ -26,9 +27,32 @@ export class PorPaisComponent implements OnInit {
   
     // Método que se ejecutará cuando 
     // presionen enter en el componente input
-    buscarEmit(stBuscar:any){
+  // Método que se ejecutará cuando 
+  // presionen enter en el componente input
+  buscarEmit(stBuscar:any){
     console.log("Método Buscar, Por País")
-    }
+    // Guardamos lo recibido en nuestra variable local
+    this.txBuscar = stBuscar
+    // Marcamos que no hay error
+    this.swError=false
+    this.serPais.buscarPais(this.txBuscar)
+    .subscribe({
+      next: (paises: IPais[]) => {  // nextHandler
+         console.log("next",paises)
+         this.swError=false
+          // Guardmos la respuesta en el arreglo paises
+          // El cual se desplegará en pantalla
+          this.paises=paises
+        },     
+      complete: () => { console.log("complete") }, // completeHandler
+      error: (error: any) => { console.log("Error")
+                    console.info(error)
+                    this.swError=true
+                    // Limpiamos el arreglo
+                    this.paises=[]
+     },    // errorHandler 
+     });
+}   
     // Método que se ejecutará cuando se 
     // produsca  onDebounce en el componente input
     sugerencia(stBuscar:any){

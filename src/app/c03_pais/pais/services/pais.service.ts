@@ -1,9 +1,38 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { IPais } from '../pais.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PaisService {
 
-  constructor() { }
+  constructor(private httpSergio:HttpClient) { }
+
+    // Variable para la url
+    private apiUrl :string='http://api.countrylayer.com/v2/'
+    // Variable para la Api Key
+    private apiKey:string="kiekejeoio8383733ujeij3u3u3"
+    // Retorna los parámetros que enviaremos al sitio real
+    // Esto solo funciona cuando funciona contra el sitio real
+    get httpParams () {
+      return new HttpParams().set( 'fields'
+                    , 'name;capital;alpha2Code;flag;population' 
+                //, 'name;capital' 
+                    ).set("access_key",this.apiKey);
+    }
+  
+  
+  
+   // Método que consulta al back-end por los paises
+    buscarPais(stBusco:string):Observable<IPais[]>{
+      // Crea la URl
+      let stUrl = `${this.apiUrl}name/${stBusco}`
+      // Modificamos la url solo para realizar pruebas locales
+      stUrl=`http://localhost:3001/${stBusco}`
+        // Visitamos la url, y eviamos los parámetros
+        return this.httpSergio.get<IPais[]>(stUrl, { params: this.httpParams })
+    }
+
 }

@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { PagePaisComponent } from './c03_pais/pais/page-pais/page-pais.component';
+//import { PagePaisComponent } from './c03_pais/pais/page-pais/page-pais.component';
 import { PorCapitalComponent } from './c03_pais/pais/por-capital/por-capital.component';
 import { PorPaisComponent } from './c03_pais/pais/por-pais/por-pais.component';
 import { PorRegionComponent } from './c03_pais/pais/por-region/por-region.component';

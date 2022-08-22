@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { IPais } from '../../pais.interface';
 
 @Component({
   selector: 'app-pais-tabla',
@@ -11,5 +12,8 @@ export class PaisTablaComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+  // campo de entrada del Arreglo Paises 
+  @Input() paises_entrada:IPais[]=[]
 
 }
