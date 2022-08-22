@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IPais } from '../pais.interface';
+import { PaisService } from '../services/pais.service';
 
 @Component({
   selector: 'app-por-region',
@@ -8,7 +9,7 @@ import { IPais } from '../pais.interface';
 })
 export class PorRegionComponent implements OnInit {
 
-  constructor() { }
+  constructor(private serPais:PaisService) { }
 
   ngOnInit(): void {
   }
@@ -20,12 +21,24 @@ export class PorRegionComponent implements OnInit {
     // Arreglo de Regiones
     regiones:string[]=['africa','americas','asia','europe','oceania'] 
     // Método que se encargará de definir la class
-    regActivaCss(stRegion:string){
-       console.log("Método regActivaCss Region, Por Region") 
-    }
+  // Método que se encargará de definir la class
+  regActivaCss(stRegion:string){
+    console.log("Método regActivaCss Region, Por Region") 
+    return (stRegion===this.regActiva)? 'btn btn-primary':'btn btn-outline-primary'
+  }
     // Región Seleccionada
-    activarRegion(region:string){
-      console.log("Método activar Region, Por Region")
-    }
+  // Región Seleccionada
+  activarRegion(region:string){
+    console.log("Método activar Region, Por Region") 
+    if(region === this.regActiva) return
+    this.regActiva=region
+    this.serPais.buscarRegion(region)
+    .subscribe({
+      next:(paises: IPais[])=>{
+            console.log("Paises Region", paises)
+            this.paises=paises
+                }
+    })
+  }
 
 }

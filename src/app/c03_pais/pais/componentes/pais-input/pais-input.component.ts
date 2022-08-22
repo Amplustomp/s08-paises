@@ -1,4 +1,5 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-pais-input',
@@ -9,9 +10,19 @@ export class PaisInputComponent implements OnInit {
 
   constructor() { }
   // Ahora si necesitaremos el ngOnInit
+
   ngOnInit(): void {
+    // Subscribimos el evento cuando inicia
+    this.debSubjectHarrys
+    .subscribe(valor=>{
+          console.log("PInput==,debouncer Init:=>",valor)
+          // enviamos al padre el valor
+          // lo mismo que el buscar
+          this.onDebounce.emit(valor)
+      })
   }
   
+
 
   txBuscar:string=""
   // placeHolderVar, recibido como parámetro desde el padre
@@ -19,6 +30,11 @@ export class PaisInputComponent implements OnInit {
   //Método que se ejecutará cuando presione Enter
   //Envio un evento al padre con emitter  
   @Output() onEnter: EventEmitter < string > = new EventEmitter()
+
+       // Emitiremos un evento al padre
+       @Output() onDebounce:EventEmitter < string > = new EventEmitter()
+       //subject esta en rxjs, Observables
+       debSubjectHarrys:Subject<string> = new Subject()
 
   buscar(){
     console.log("PInput==,Buscar Submit")

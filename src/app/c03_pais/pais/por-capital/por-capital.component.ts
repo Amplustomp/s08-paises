@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { IPais } from '../pais.interface';
+import { PaisService } from '../services/pais.service';
 
 @Component({
   selector: 'app-por-capital',
@@ -8,7 +9,7 @@ import { IPais } from '../pais.interface';
 })
 export class PorCapitalComponent implements OnInit {
 
-  constructor() { }
+  constructor(private serPais:PaisService) { }
 
   ngOnInit(): void {
   }
@@ -21,9 +22,31 @@ export class PorCapitalComponent implements OnInit {
    paises:IPais[]=[]
  
    // Método Buscar, accionado desde el componente input
-   buscarEmit(stBuscar:any){
-   console.log("Método BuscarEmit, Por Capital") 
-   }
+  // Método Buscar, accionado desde el componente input
+  buscarEmit(stBuscar:any){
+    console.log("Método BuscarEmit, Por Capital")
+    // Guardamos lo recibido en nuestra variable local
+    this.txBuscar = stBuscar
+    // Marcamos que no hay error
+    this.swError=false
+    this.serPais.buscarCapital(this.txBuscar)
+    .subscribe({
+      next: (paises: IPais[]) => {  // nextHandler
+         console.log("next",paises)
+         this.swError=false
+          // Guardmos la respuesta en el arreglo paises
+          // El cual se desplegará en pantalla
+          this.paises=paises
+        },     
+      complete: () => { console.log("complete") }, // completeHandler
+      error: (error: any) => { console.log("Error")
+                    console.info(error)
+                    this.swError=true
+                    // Limpiamos el arreglo
+                    this.paises=[]
+     },    // errorHandler 
+     });     
+  }
    // Método sugerencia, accionado desde el componente input
    sugerencia(stBuscar:any){
    console.log("Método sugerencia, Por Capital") 

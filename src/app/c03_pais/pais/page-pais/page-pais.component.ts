@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Subject } from 'rxjs';
 
 @Component({
   selector: 'app-page-pais',
@@ -11,5 +12,7 @@ export class PagePaisComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
+
 
 }

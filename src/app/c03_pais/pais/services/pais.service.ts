@@ -35,4 +35,35 @@ export class PaisService {
         return this.httpSergio.get<IPais[]>(stUrl, { params: this.httpParams })
     }
 
+        // Método que consulta al back-end por los paises
+        buscarCapital(stBusco:string):Observable<IPais[]>{
+          // Crea la URl
+          let stUrl = `${this.apiUrl}capital/${stBusco}`
+          // Modificamos la url solo para realizar pruebas locales
+          stUrl=`http://localhost:3002/${stBusco}`
+          // Visitamos la url, y eviamos los parámetros
+          return this.httpSergio.get<IPais[]>(stUrl, { params: this.httpParams })
+     }
+
+         // Método que consulta al back-end por los paises
+    buscarRegion(stBusco:string):Observable<IPais[]>{
+      // Crea la URl
+      let stUrl = `${this.apiUrl}region/${stBusco}`
+      // Modificamos la url solo para realizar pruebas locales
+      stUrl=`http://localhost:3003/${stBusco}`
+        // Visitamos la url, y eviamos los parámetros
+        return this.httpSergio.get<IPais[]>(stUrl, { params: this.httpParams })
+    }  
+
+        // Método que consulta al back-end para un Pais
+    // Ojo que cambia, ya no retorna un arreglo
+    buscarPaisCodigo(stBusco:string):Observable<IPais>{
+      // Crea la URl
+      let stUrl = `${this.apiUrl}region/${stBusco}`
+      // Modificamos la url solo para realizar pruebas locales
+      stUrl=`http://localhost:3004/${stBusco}`
+        // Visitamos la url, y eviamos los parámetros
+        return this.httpSergio.get<IPais>(stUrl, { params: this.httpParams })
+    }    
+
 }
